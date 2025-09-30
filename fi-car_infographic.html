@@ -1,0 +1,593 @@
+<!-- Chosen Palette: Brilliant Blues (#0B2447, #19376D, #576CBC, #A5D7E8) -->
+<!-- Application Structure Plan: The infographic is structured as a persuasive narrative for investors. It starts with a hook (the large market opportunity), presents the unique solution (Fi-Car's differentiators), builds credibility by detailing the 'how' (the security-first onboarding process), shows the potential reward (financial growth projections), and concludes with the specific 'ask' (revenue model and funding allocation). This thematic flow is designed to build a compelling investment case step-by-step. -->
+<!-- Visualization & Content Choices: 
+- Market Size: Goal: Compare. Viz: Donut Chart (Chart.js) to show Fi-Car's target market (SOM) within the larger industry (TAM/SAM). Justification: Effectively visualizes market segmentation and focus.
+- Differentiators: Goal: Organize. Viz: HTML/CSS Cards with Unicode icons. Justification: Clearly presents the three core strategic pillars without complex visuals.
+- Onboarding Process: Goal: Organize/Flow. Viz: Flowchart-style diagram using structured HTML/CSS with Tailwind. Justification: Illustrates the critical, step-by-step security protocol for both renters and owners, building trust in the operational model.
+- Growth Projections: Goal: Change/Compare. Viz: Combo Bar/Line Chart (Chart.js). Justification: Perfectly shows the correlation between Gross Trip Value (bars) and Total Trips (line) over time on two different axes.
+- Revenue Streams: Goal: Compare Composition. Viz: Stacked Bar Chart (Chart.js). Justification: Clearly demonstrates the evolution of the revenue mix from Year 1 to Year 5, highlighting the increasing importance of high-margin ancillary services.
+- Funding Allocation: Goal: Inform/Proportion. Viz: Pie Chart (Chart.js). Justification: Provides an immediate, easy-to-understand breakdown of how the seed investment will be utilized.
+- LLM Integration: Added two features using Gemini-2.5-flash: 1) Investment Thesis Generator (summarizes the pitch) and 2) Risk & Mitigation Analysis (identifies key risks for P2P model).
+- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fi-Car: A Visual Investment Brief</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px; 
+            max-height: 450px;
+        }
+         @media (max-width: 768px) {
+            .chart-container {
+                height: 300px;
+            }
+        }
+        .flow-line::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 2rem;
+            bottom: 0;
+            width: 2px;
+            background-color: #576CBC;
+            z-index: -1;
+        }
+        .flow-item:last-child .flow-line::before {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-[#A5D7E8]">
+    <div class="container mx-auto p-4 md:p-8 max-w-7xl">
+
+        <header class="text-center mb-12 md:mb-16 text-[#0B2447]">
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-2">Fi-Car</h1>
+            <h2 class="text-2xl md:text-3xl font-bold mb-4">Arrive with Confidence.</h2>
+            <p class="max-w-3xl mx-auto text-[#19376D] text-lg">A visual investment brief for the premium, secure car-sharing platform engineered for the trust economy.</p>
+        </header>
+
+        <main class="space-y-12 md:space-y-20">
+
+            <section class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+                <h3 class="text-3xl font-bold text-[#0B2447] text-center mb-2">The Market Opportunity</h3>
+                <p class="text-center text-[#19376D] max-w-3xl mx-auto mb-8">The global car rental industry is a $120B+ market ripe for disruption. Fi-Car is not competing on price; we are competing on trust, targeting a high-value $10B segment of the market that demands security and reliability.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                    <div class="md:col-span-2">
+                         <div class="chart-container md:h-[400px]">
+                            <canvas id="marketSizeChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="text-center p-6 bg-[#19376D] rounded-lg text-white self-stretch flex flex-col justify-center">
+                        <h4 class="text-lg font-semibold mb-2 text-[#A5D7E8]">Our 5-Year Target (SOM)</h4>
+                        <p class="text-4xl md:text-5xl font-extrabold mb-2">$700M+</p>
+                        <p class="text-sm">We aim to capture 7% of the Serviceable Available Market by becoming the undisputed leader in secure, peer-to-peer mobility in key metropolitan hubs.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section>
+                <h3 class="text-3xl font-bold text-[#0B2447] text-center mb-8">Our Unfair Advantage: The Bulletproof Framework</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-lg shadow-md p-6 text-center transition-transform transform hover:scale-105">
+                        <div class="text-5xl mb-4">🛡️</div>
+                        <h4 class="text-xl font-bold text-[#0B2447] mb-2">Triple-Layered Safety</h4>
+                        <p class="text-[#19376D]">Mandatory KYC, MVR checks, and real-time GPS/Telematics in every vehicle transform risk into a managed, quantifiable service.</p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-6 text-center transition-transform transform hover:scale-105">
+                        <div class="text-5xl mb-4">🚗</div>
+                        <h4 class="text-xl font-bold text-[#0B2447] mb-2">Hybrid Fleet Model</h4>
+                        <p class="text-[#19376D]">A mix of high-quality P2P inventory and a strategic corporate fleet ensures availability and sets a benchmark for quality.</p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-6 text-center transition-transform transform hover:scale-105">
+                         <div class="text-5xl mb-4">🤝</div>
+                        <h4 class="text-xl font-bold text-[#0B2447] mb-2">Owner-Centric Protection</h4>
+                        <p class="text-[#19376D]">Our proprietary insurance explicitly covers theft-by-hirer and guarantees loss-of-use, making Fi-Car a true asset monetization tool.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+                 <h3 class="text-3xl font-bold text-[#0B2447] text-center mb-8">The Onboarding Protocol: Engineering Trust from Day One</h3>
+                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-8">
+                     <div>
+                         <h4 class="text-2xl font-bold text-center text-[#0B2447] mb-6">Renter: Security-First Activation</h4>
+                         <div class="relative">
+                            <div class="flow-item relative mb-6 pl-10 flow-line">
+                                <div class="absolute left-0 flex-shrink-0 bg-[#576CBC] text-white rounded-full h-8 w-8 flex items-center justify-center font-bold ring-4 ring-white">1</div>
+                                <h5 class="font-semibold text-[#19376D]">Biometric KYC Verification</h5>
+                                <p class="text-sm text-[#0B2447]">Instant ID scan and live selfie match prevents identity fraud.</p>
+                            </div>
+                            <div class="flow-item relative mb-6 pl-10 flow-line">
+                                <div class="absolute left-0 flex-shrink-0 bg-[#576CBC] text-white rounded-full h-8 w-8 flex items-center justify-center font-bold ring-4 ring-white">2</div>
+                                <h5 class="font-semibold text-[#19376D]">MVR Driving Record Check</h5>
+                                <p class="text-sm text-[#0B2447]">Automated screening for major infractions ensures only safe drivers join.</p>
+                            </div>
+                             <div class="flow-item relative pl-10">
+                                <div class="absolute left-0 flex-shrink-0 bg-[#0B2447] text-white rounded-full h-8 w-8 flex items-center justify-center font-bold ring-4 ring-white">✓</div>
+                                <h5 class="font-semibold text-[#0B2447]">Approved to Drive</h5>
+                                <p class="text-sm text-[#0B2447]">A fully-vetted renter gains access to the secure fleet in minutes.</p>
+                            </div>
+                         </div>
+                     </div>
+                     <div class="border-t lg:border-t-0 lg:border-l border-gray-200 pt-8 lg:pt-0 lg:pl-12">
+                         <h4 class="text-2xl font-bold text-center text-[#0B2447] mb-6">Owner: Asset Protection & Yield Assurance</h4>
+                          <div class="relative">
+                            <div class="flow-item relative mb-6 pl-10 flow-line">
+                                <div class="absolute left-0 flex-shrink-0 bg-[#576CBC] text-white rounded-full h-8 w-8 flex items-center justify-center font-bold ring-4 ring-white">1</div>
+                                <h5 class="font-semibold text-[#19376D]">Vehicle Vetting & Inspection</h5>
+                                <p class="text-sm text-[#0B2447]">We confirm the vehicle meets our premium standards (post-2015) and passes a safety check.</p>
+                            </div>
+                            <div class="flow-item relative mb-6 pl-10 flow-line">
+                                <div class="absolute left-0 flex-shrink-0 bg-[#576CBC] text-white rounded-full h-8 w-8 flex items-center justify-center font-bold ring-4 ring-white">2</div>
+                                <h5 class="font-semibold text-[#19376D]">Mandatory Telematics Installation</h5>
+                                <p class="text-sm text-[#0B2447]">Our technician installs the proprietary GPS unit, activating our core security protocol.</p>
+                            </div>
+                             <div class="flow-item relative pl-10">
+                                <div class="absolute left-0 flex-shrink-0 bg-[#0B2447] text-white rounded-full h-8 w-8 flex items-center justify-center font-bold ring-4 ring-white">✓</div>
+                                <h5 class="font-semibold text-[#0B2447]">Ready to Earn Securely</h5>
+                                <p class="text-sm text-[#0B2447]">The asset is now protected, insured, and ready to generate income with our AI yield optimizer.</p>
+                            </div>
+                         </div>
+                     </div>
+                 </div>
+            </section>
+
+            <section>
+                <h3 class="text-3xl font-bold text-[#0B2447] text-center mb-2">Projected 5-Year Growth Trajectory</h3>
+                <p class="text-[#19376D] text-center max-w-3xl mx-auto mb-8">Our strategy focuses on building owner trust to scale our fleet, which directly fuels trip volume and revenue growth. We project profitability driven by high-margin ancillary services that scale alongside our core commission model.</p>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="chart-container h-[450px]">
+                        <canvas id="growthProjectionChart"></canvas>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                 <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-2xl font-bold text-[#0B2447] mb-4">A Resilient, Diversified Revenue Model</h3>
+                    <p class="text-[#19376D] mb-6">Fi-Car's financial health is built on multiple revenue streams. As the platform scales, high-margin services like protection plans and subscriptions will significantly boost overall profitability.</p>
+                    <div class="chart-container">
+                        <canvas id="revenueStreamsChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-2xl font-bold text-[#0B2447] mb-4">Seed Funding: The Ask & Allocation</h3>
+                     <p class="text-[#19376D] mb-6">We are seeking <span class="font-bold text-[#0B2447]">$1,500,000 (KSh 195,000,000)</span> to fund an 18-month runway, strategically allocated to build our technological moat and secure the initial high-quality fleet.</p>
+                    <div class="chart-container">
+                        <canvas id="fundingAllocationChart"></canvas>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="bg-[#19376D] rounded-xl shadow-xl p-6 md:p-8 text-white">
+                <h3 class="text-3xl font-bold text-[#A5D7E8] text-center mb-6">✨ Investor AI Tools (Powered by Gemini)</h3>
+                <p class="text-center mb-8 max-w-4xl mx-auto">Leverage AI to synthesize the investment case and preemptively identify key risks based on the Fi-Car business model.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <button id="thesisButton" class="bg-[#576CBC] hover:bg-[#A5D7E8] hover:text-[#0B2447] text-white font-bold py-3 px-6 rounded-lg transition duration-300 shadow-md">
+                        ✨ Generate Investment Thesis Summary
+                    </button>
+                    <button id="riskButton" class="bg-[#576CBC] hover:bg-[#A5D7E8] hover:text-[#0B2447] text-white font-bold py-3 px-6 rounded-lg transition duration-300 shadow-md">
+                        ✨ Analyze Top 3 Risks & Mitigation
+                    </button>
+                </div>
+                
+                <div id="outputContainer" class="mt-8 p-6 bg-white text-[#0B2447] rounded-lg shadow-inner hidden">
+                    <h4 id="outputTitle" class="text-xl font-bold mb-3"></h4>
+                    <p id="outputContent" class="text-base leading-relaxed"></p>
+                    <div id="loadingIndicator" class="hidden flex items-center justify-center text-[#19376D] space-x-2">
+                        <svg class="animate-spin h-5 w-5 text-[#576CBC]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <span>Analyzing the business plan...</span>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+        
+        <footer class="text-center mt-16 md:mt-20 py-8 border-t border-[#576CBC]/50 text-[#0B2447]">
+            <p class="text-2xl font-bold">Invest in the Future of Secure Mobility.</p>
+            <p class="text-lg text-[#19376D]">Invest in Fi-Car.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        const wrapLabels = (label, maxWidth = 16) => {
+            if (typeof label !== 'string' || label.length <= maxWidth) {
+                return label;
+            }
+            const words = label.split(' ');
+            const lines = [];
+            let currentLine = '';
+            for (const word of words) {
+                if ((currentLine + ' ' + word).trim().length > maxWidth) {
+                    if (currentLine.length > 0) lines.push(currentLine.trim());
+                    currentLine = word;
+                } else {
+                    currentLine = (currentLine + ' ' + word).trim();
+                }
+            }
+            if (currentLine) {
+                lines.push(currentLine.trim());
+            }
+            return lines;
+        };
+        
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            }
+            return label;
+        };
+
+        const chartColors = {
+            darkBlue: '#0B2447',
+            mediumBlue: '#19376D',
+            lightBlue: '#576CBC',
+            paleBlue: '#A5D7E8',
+        };
+        
+        Chart.defaults.font.family = "'Inter', sans-serif";
+        Chart.defaults.font.weight = '500';
+
+        new Chart(document.getElementById('marketSizeChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Rest of Global Market', 'Serviceable Available Market (SAM)', 'Serviceable Obtainable Market (SOM)'],
+                datasets: [{
+                    label: 'Market Size',
+                    data: [110000, 9300, 700], 
+                    backgroundColor: [
+                        'rgba(165, 215, 232, 0.3)',
+                        chartColors.lightBlue,
+                        chartColors.darkBlue,
+                    ],
+                    borderColor: '#FFFFFF',
+                    borderWidth: 3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '60%',
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { color: chartColors.darkBlue }
+                    },
+                    tooltip: {
+                         callbacks: {
+                            title: tooltipTitleCallback,
+                            label: function(context) {
+                                let label = context.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed !== null) {
+                                    label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', notation: 'compact', maximumFractionDigits: 1 }).format(context.parsed * 1000000);
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        new Chart(document.getElementById('growthProjectionChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5'],
+                datasets: [{
+                    label: 'Gross Trip Revenue (GTV)',
+                    data: [1.5, 8, 24, 50, 87.5],
+                    backgroundColor: chartColors.lightBlue,
+                    yAxisID: 'y',
+                }, {
+                    label: 'Total Trips',
+                    data: [10000, 60000, 150000, 300000, 500000],
+                    backgroundColor: chartColors.darkBlue,
+                    borderColor: chartColors.darkBlue,
+                    type: 'line',
+                    yAxisID: 'y1',
+                    tension: 0.3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                         labels: { color: chartColors.darkBlue }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: tooltipTitleCallback,
+                             label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.dataset.yAxisID === 'y') {
+                                    label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', notation: 'compact' }).format(context.parsed.y * 1000000);
+                                } else {
+                                    label += new Intl.NumberFormat('en-US').format(context.parsed.y);
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: { ticks: { color: chartColors.darkBlue } },
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        title: {
+                            display: true,
+                            text: 'GTV (in Millions USD)',
+                            color: chartColors.darkBlue
+                        },
+                        ticks: {
+                            callback: (value) => '$' + value + 'M',
+                            color: chartColors.darkBlue
+                        }
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        title: {
+                            display: true,
+                            text: 'Total Trips',
+                            color: chartColors.darkBlue
+                        },
+                        grid: { drawOnChartArea: false },
+                         ticks: {
+                            callback: (value) => (value / 1000) + 'k',
+                            color: chartColors.darkBlue
+                        }
+                    },
+                }
+            }
+        });
+
+        const revenueStreamLabels = ['Platform Commission', 'Ancillary Services', 'Subscription Fees', 'Data Licensing'];
+        new Chart(document.getElementById('revenueStreamsChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Year 1', 'Year 5'],
+                datasets: [{
+                    label: revenueStreamLabels[0],
+                    data: [0.375, 21.875],
+                    backgroundColor: chartColors.darkBlue,
+                }, {
+                    label: revenueStreamLabels[1],
+                    data: [0.150, 8.750],
+                    backgroundColor: chartColors.mediumBlue,
+                }, {
+                    label: revenueStreamLabels[2],
+                    data: [0.05, 3.5], 
+                    backgroundColor: chartColors.lightBlue,
+                }, {
+                    label: revenueStreamLabels[3],
+                    data: [0, 1.5], 
+                    backgroundColor: 'rgba(165, 215, 232, 0.8)',
+                }]
+            },
+            options: {
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            title: tooltipTitleCallback,
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) { label += ': '; }
+                                label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', notation: 'compact' }).format(context.parsed.y * 1000000);
+                                return label;
+                            }
+                        }
+                    },
+                    legend: { display: true, position: 'bottom', labels: { color: chartColors.darkBlue } }
+                },
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { stacked: true, ticks: { color: chartColors.darkBlue } },
+                    y: {
+                        stacked: true,
+                        title: { display: true, text: 'Revenue (in Millions USD)', color: chartColors.darkBlue },
+                        ticks: {
+                             callback: (value) => '$' + value + 'M',
+                             color: chartColors.darkBlue
+                        }
+                    }
+                }
+            }
+        });
+
+        const fundingLabels = ['Technology Development', 'Owner Acquisition & Onboarding', wrapLabels('Legal & Insurance Reserves'), 'Personnel & Operations'];
+        new Chart(document.getElementById('fundingAllocationChart'), {
+            type: 'pie',
+            data: {
+                labels: fundingLabels,
+                datasets: [{
+                    label: 'Funding Allocation',
+                    data: [40, 25, 20, 15],
+                    backgroundColor: [
+                        chartColors.darkBlue,
+                        chartColors.mediumBlue,
+                        chartColors.lightBlue,
+                        chartColors.paleBlue,
+                    ],
+                    borderColor: '#FFFFFF',
+                    borderWidth: 3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { color: chartColors.darkBlue }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: tooltipTitleCallback,
+                             label: function(context) {
+                                let label = context.label || '';
+                                if(Array.isArray(label)) { label = label.join(' '); }
+                                if (label) { label += ': '; }
+                                label += context.parsed + '%';
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        
+        const API_KEY = ""; 
+        const GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=" + API_KEY;
+
+        const fetchWithExponentialBackoff = async (url, payload, maxRetries = 5) => {
+            let delay = 1000;
+            for (let i = 0; i < maxRetries; i++) {
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (response.status === 429 && i < maxRetries - 1) {
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        delay *= 2;
+                        continue;
+                    }
+                    if (!response.ok) {
+                         throw new Error(`API call failed with status: ${response.status}`);
+                    }
+                    
+                    const result = await response.json();
+                    const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                    if (text) {
+                        return text;
+                    } else {
+                        throw new Error("No content received from API.");
+                    }
+
+                } catch (error) {
+                    console.error("Fetch attempt failed:", error);
+                    if (i === maxRetries - 1) throw error;
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                    delay *= 2;
+                }
+            }
+        };
+
+        const showLoading = (title) => {
+            document.getElementById('outputContainer').classList.remove('hidden');
+            document.getElementById('outputTitle').textContent = title;
+            document.getElementById('outputContent').textContent = '';
+            document.getElementById('loadingIndicator').classList.remove('hidden');
+            document.getElementById('thesisButton').disabled = true;
+            document.getElementById('riskButton').disabled = true;
+        };
+
+        const hideLoading = (content) => {
+            document.getElementById('loadingIndicator').classList.add('hidden');
+            document.getElementById('outputContent').innerHTML = content.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>').replace(/\n/g, '<br>');
+            document.getElementById('thesisButton').disabled = false;
+            document.getElementById('riskButton').disabled = false;
+        };
+
+        const getInvestmentThesisPrompt = () => {
+            return `Analyze the following key facts and business strategy for a car-sharing platform named Fi-Car and generate a concise, single-paragraph investment thesis suitable for an internal investor memo. Focus on market size, the unique competitive edge (security/trust), and growth potential.
+            
+            Key Facts:
+            - Market Target: High-value $10B segment of a $120B global market. 5-Year target (SOM) is $700M+.
+            - Core Advantage: The 'Bulletproof Framework' emphasizes Triple-Layered Safety (KYC, MVR, Telematics) and Owner-Centric Protection (proprietary insurance covering theft-by-hirer and loss-of-use).
+            - Business Model: Hybrid fleet (P2P + corporate) focused on quality and security, enabling high take-rates and diversified revenue streams (commission, ancillary services, subscriptions, data licensing).
+            - Financials: Projected GTV growth from $1.5M (Year 1) to $87.5M (Year 5). Total Trips grow from 10k to 500k.
+            - Funding Ask: $1.5M seed for tech development and initial fleet acquisition.`;
+        };
+
+        const getRiskAnalysisPrompt = () => {
+            return `Act as a strategic risk analyst. Fi-Car is a peer-to-peer car-sharing platform focused on premium quality and high security. Based on this model, identify the top 3 critical operational or market risks. For each risk, provide a concise mitigation strategy (2-3 sentences max). Present the output as a numbered list.`;
+        };
+
+
+        const generateInvestmentThesis = async () => {
+            showLoading('Generating Investment Thesis...');
+            const userQuery = getInvestmentThesisPrompt();
+            const systemPrompt = "You are a professional financial analyst writing an internal memo. Your output must be a single, persuasive paragraph.";
+
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+            };
+
+            try {
+                const text = await fetchWithExponentialBackoff(GEMINI_URL, payload);
+                hideLoading(text);
+            } catch (error) {
+                hideLoading('<span class="text-red-600">Error generating thesis. Please check the console for details.</span>');
+            }
+        };
+
+        const identifyChallenges = async () => {
+            showLoading('Analyzing Top 3 Risks & Mitigation...');
+            const userQuery = getRiskAnalysisPrompt();
+            const systemPrompt = "You are a strategic consultant. Provide a numbered list of 3 risks and their corresponding mitigation strategies based on the P2P car-sharing industry.";
+
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+            };
+
+            try {
+                const text = await fetchWithExponentialBackoff(GEMINI_URL, payload);
+                hideLoading(text);
+            } catch (error) {
+                hideLoading('<span class="text-red-600">Error identifying risks. Please check the console for details.</span>');
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('thesisButton').addEventListener('click', generateInvestmentThesis);
+            document.getElementById('riskButton').addEventListener('click', identifyChallenges);
+        });
+
+    </script>
+</body>
+</html>
